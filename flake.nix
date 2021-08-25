@@ -33,8 +33,17 @@
         installPhase = ''
           strip --strip-unneeded qnapic
           install -d $out/
-          install -m+x qnapic $out/qnapic
+          install -m+x qnapic $out/qnapic.bin
+
+          cat >$out/qnapic <<EOF
+          #!/usr/bin/env bash
+          exec $out/qnapic.bin --lang pl --lang-backup en "\$@"
+          EOF
+
+          chmod +x $out/qnapic
         '';
+
+        dontFixup = true;
       };
   };
 }
