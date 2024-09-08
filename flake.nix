@@ -1,7 +1,7 @@
 {
   description = "A flake for QNapi";
 
-  inputs.nixpkgs.url = github:NixOS/nixpkgs/nixos-21.05;
+  inputs.nixpkgs.url = "git+file:./nixpkgs?ref=nixos-unstable";
 
   outputs = { self, nixpkgs }: {
     defaultPackage.x86_64-linux =
@@ -10,19 +10,19 @@
 
       stdenv.mkDerivation rec {
         name = "qnapi_sk4zuzu";
-        version = "2c95060fccf9422301d756d7e80fb2fc154ccb13";
+        version = "d4e0378a601838a96b7ee25ff48a8eaf18388fcd";
 
         src = fetchFromGitHub {
           owner = "QNapi";
           repo = "qnapi";
           rev = version;
-          sha256 = "sha256-zHX7XQ6JalqGVy4g68Ln0DRJR9JwaUTEQJrQ63+kVqo=";
+          sha256 = "sha256-Epl9/Tw+FfnbnZGczAw1Yt8bjEsnZnxVBSh0rcA/wP4=";
           fetchSubmodules = true;
         };
 
         dontWrapQtApps = true;
 
-        nativeBuildInputs = [ qmake pkgconfig ];
+        nativeBuildInputs = [ qmake pkg-config ];
 
         buildInputs = [ qtbase libmediainfo libzen ];
 
